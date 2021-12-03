@@ -5,7 +5,6 @@
 using namespace std;
 //functions for styling
 void  highlight (string s);
-void  put_line  (string s);
 void  yellow    (string s);
 void  grean     (string s);
 
@@ -43,6 +42,11 @@ public:
         printf(" length = %d, width = %d\n", length, width);
     }
     void draw();
+    
+    int area()
+    {
+        return (length * width);
+    }
 };
 
 void Reqtangle::draw()
@@ -55,10 +59,8 @@ void Reqtangle::draw()
     {
         for (b = 0; b != width; b++) 
         {
-            if ((a == 0) || (a == length - 1) || (b == width - 1) || (b == 0))
-                printf("*");
-            else
-                printf(" ");
+            if ((a == 0) || (a == length - 1) || (b == width - 1) || (b == 0)) printf("* ");
+            else printf("  ");
         }
         printf("\n");
     }
@@ -67,26 +69,34 @@ void Reqtangle::draw()
 
 int main()
 {
-    yellow("====================================");
-    highlight("Static allocation...................");
+    yellow("=====================================");
+    highlight("..........Static allocation..........");
     {
         Reqtangle req1;
         Reqtangle req2(2, 3); 
         Reqtangle req3(req2);
     }
-    yellow("====================================");
+    yellow("=====================================");
 
-    yellow("====================================");
-    highlight("Dynamic allocation..................");
+    yellow("=====================================");
+    highlight("..........Dynamic allocation.........");
     Reqtangle *req1 = new Reqtangle();
-    Reqtangle *req2 = new Reqtangle(5,10);
+    Reqtangle *req2 = new Reqtangle(4,5);
     Reqtangle *req3 = new Reqtangle(*req2);
-    req2->draw();
     delete     req1;
     delete     req2;
     delete     req3;
-    yellow("====================================");
+    yellow("=====================================");
 
+    yellow("=====================================");
+    {
+        Reqtangle req(6, 7);
+        req.draw();
+        printf("Area of reqtangle = %d\n", req.area());
+    }
+    yellow("=====================================");
+
+    system("pause");
     return 0;
 }
 
@@ -94,5 +104,4 @@ int main()
 //funtions for styling the output
 void grean    (string s){printf("\033[1;32m"); cout << endl << s << endl; printf("\033[0m");}
 void yellow   (string s){printf("\033[1;33m"); cout << endl << s << endl; printf("\033[0m");}
-void put_line (string s){printf("\033[1;4m" ); cout << endl << s << endl; printf("\033[0m");}
 void highlight(string s){printf("\033[1;7m" ); cout << endl << s << endl; printf("\033[0m");}
