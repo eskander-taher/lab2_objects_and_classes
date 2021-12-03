@@ -49,9 +49,47 @@ public:
     }
 };
 
+class RoundedReqtangle : Reqtangle
+{
+protected:
+    int radus;
+
+public:
+    RoundedReqtangle() : Reqtangle ()
+    {
+        grean("RoundedReqtangle");
+        radus = 0;
+    }
+
+    RoundedReqtangle(int req_length, int req_width, int req_radus) : Reqtangle(req_length, req_width)
+    {
+        grean("RoundedReqtangle(int x, int y,int radus)");
+        this->radus = req_radus;
+    }
+
+    RoundedReqtangle(RoundedReqtangle& obj)
+    {
+        grean("RoundedReqtangle(RoundedReqtangle& obj)");
+        length = obj.length;
+        width = obj.width;
+        radus = obj.radus;
+    }
+
+    ~RoundedReqtangle()
+    {
+        printf("\n~RoundedReqtangle() ");
+        printf("\nlength = %d, width = %d, radus = %d\n", length, width, radus);
+    }
+    
+    void changeRadus(int new_radus)
+    {
+        radus = new_radus;
+    }
+};
+
 void Reqtangle::draw()
 {
-    int a, b;
+    int a, b, edge = 0;
 
     grean("draw");
     printf("\033[1;32m");
@@ -90,9 +128,17 @@ int main()
 
     yellow("=====================================");
     {
-        Reqtangle req(6, 7);
+        Reqtangle req(4, 4);
         req.draw();
         printf("Area of reqtangle = %d\n", req.area());
+    }
+    yellow("=====================================");
+
+    yellow("=====================================");
+    {
+        RoundedReqtangle* rounded = new RoundedReqtangle(8, 9, 2);
+        rounded->changeRadus(5);
+        delete rounded;
     }
     yellow("=====================================");
 
